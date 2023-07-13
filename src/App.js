@@ -10,7 +10,13 @@ const App = () => {
     return (
         <div className="App">
             <Navbar />
-            {!user ? <Welcome /> : <ChatBox />}
+            {!user ? (
+                <Welcome />
+            ) : (
+                <>
+                    <ChatBox />
+                </>
+            )}
         </div>
     );
 };

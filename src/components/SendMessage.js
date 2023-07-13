@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { auth,  db } from "../firebase";
+import { auth, db } from "../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
-const SendMessage = () => {
+const SendMessage = ({ scroll }) => {
     const [message, setMessage] = useState("");
 
     //send message function
@@ -21,6 +21,7 @@ const SendMessage = () => {
             uid,
         });
         setMessage("");
+        scroll.current.scrollIntoView({ behaviour: "smooth" });
     };
     return (
         <form className="send-message" onSubmit={(e) => sendMessage(e)}>

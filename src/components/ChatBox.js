@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, limit, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
@@ -10,7 +10,7 @@ const ChatBox = () => {
     const scroll = useRef();
 
     useEffect(() => {
-        const q = query(collection(db, "messages"), orderBy("createdAt", "desc").limit(50));
+        const q = query(collection(db, "messages"), orderBy("createdAt", "desc"), limit(50));
 
         const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
             const fetchedMessages = [];
@@ -37,7 +37,7 @@ const ChatBox = () => {
             </div>
 
             {/* when a new message enters the chat , the screen scrolls down to the scroll div */}
-            <span ref={scroll}>{scroll}</span>
+            <span ref={scroll}></span>
             <SendMessage scroll={scroll} />
         </main>
     );

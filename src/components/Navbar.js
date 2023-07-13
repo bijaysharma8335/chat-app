@@ -6,6 +6,7 @@ import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 
 const Navbar = () => {
     const [user] = useAuthState(auth);
+    
     //signin function
     const googleSignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -16,7 +17,7 @@ const Navbar = () => {
     const signOut = () => {
         auth.signOut();
     };
-    
+
     return (
         <nav className="nav-bar">
             <h1>React Chat</h1>
