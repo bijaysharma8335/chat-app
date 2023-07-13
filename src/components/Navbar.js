@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import GoogleSignin from "../Image/btn_google.png";
-import {auth} from '../firebase'
+import { auth } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 
 const Navbar = () => {
-    const [user, setUser] = useState(false);
-
-    const signOut = () => {
-        setUser(false);
+    const [user] = useAuthState(auth);
+    //signin function
+    const googleSignIn = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithRedirect(auth, provider);
     };
+
+    //signout function
+    const signOut = () => {
+        auth.signOut();
+    };
+    
     return (
         <nav className="nav-bar">
             <h1>React Chat</h1>
@@ -17,7 +26,12 @@ const Navbar = () => {
                 </button>
             ) : (
                 <button className="sign-in">
-                    <img src={GoogleSignin} alt="sign in with google" type="button" />
+                    <img
+                        onClick={googleSignIn}
+                        src={GoogleSignin}
+                        alt="sign in with google"
+                        type="button"
+                    />
                 </button>
             )}
         </nav>
